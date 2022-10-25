@@ -1,6 +1,7 @@
 package com.educandoweb.course.resources;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,27 +9,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educandoweb.course.entities.User;
-import com.educandoweb.course.services.UserService;
+import com.educandoweb.course.entities.Product;
+import com.educandoweb.course.services.ProductService;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResource {
-	
+@RequestMapping(value = "/products")
+public class ProductResource {
+
 	@Autowired
-	private UserService UserService;
+	private ProductService productService;
 
 	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
+	public ResponseEntity<List<Product>> findAll() {
+		List<Product> obj = productService.findAll();
+		return ResponseEntity.ok().body(obj);
+	}
 
-		List<User> list= UserService.findAll();
-		return ResponseEntity.ok().body(list);
-	}
-	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id){
-		User u1 = UserService.findById(id);
-		return ResponseEntity.ok().body(u1);
+	public ResponseEntity<Product> findById(@PathVariable Long id) {
+		Product obj = productService.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
-	
+
 }
