@@ -6,11 +6,14 @@ import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
@@ -27,9 +30,10 @@ public class Product implements Serializable {
 	private Double price;
 	private String imgUrl;
 	
-	//@ManyToOne
-	//@JoinColumn(name="category_id", foreignKey = @ForeignKey(name="fk_categoryId"))
-	@Transient
+	@ManyToMany
+	@JoinTable(name="tb_product_category",
+	joinColumns = @JoinColumn(name="product_id", foreignKey = @ForeignKey(name="fk_productid")),
+	inverseJoinColumns = @JoinColumn(name="category_id", foreignKey = @ForeignKey(name="fk_categoryid")))
 	private Set<Category> categories = new HashSet<>();
 	
 	public Product() {
