@@ -17,7 +17,7 @@ public class OrderItemPk implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
-	@JoinColumn(name="product_id", foreignKey = @ForeignKey(name="fk_productid"))
+	@JoinColumn(name="product_id")
 	private Product product;
 
 	@ManyToOne
